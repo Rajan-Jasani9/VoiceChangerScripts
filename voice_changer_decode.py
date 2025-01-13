@@ -2,12 +2,12 @@ import librosa
 import soundfile as sf
 import json
 
-# Function to restore the original voice using metadata
-def restore_original_voice(modified_file, output_file, original_metadata, pitch_shift=4):
+def restore_original_voice(modified_file, output_file, original_metadata):
     # Load the modified audio file
     audio, sr = librosa.load(modified_file, sr=None)
 
     # Reverse the pitch shift
+    pitch_shift = original_metadata.get("pitch_shift", 0)
     restored_audio = librosa.effects.pitch_shift(audio, sr=sr, n_steps=-pitch_shift)
 
     # Ensure the sample rate matches the original
@@ -18,6 +18,7 @@ def restore_original_voice(modified_file, output_file, original_metadata, pitch_
     sf.write(output_file, restored_audio, original_metadata["sample_rate"])
     print(f"Original voice restored and saved as '{output_file}'")
 
+
 # Main script execution
 if __name__ == '__main__':
     # Load original metadata from JSON file
@@ -25,8 +26,8 @@ if __name__ == '__main__':
         with open('metadata.json', 'r') as f:
             original_metadata = json.load(f)
     except FileNotFoundError:
-        print("Error: 'metadata.json' file not found.")
-        exit(1)
+        original_metadata= {'sample_rate': 48000, 'channels': 1, 'duration': 5.64}
+        print("Error: 'metadata.json' file not found using manual metadata.")
 
     # Restore the original voice
-    restore_original_voice('changed_audio.wav', 'restored_audio.mpr', original_metadata)
+    restore_original_voice('changed_audio.mp3', 'restored_audio.mp3', original_metadata)
