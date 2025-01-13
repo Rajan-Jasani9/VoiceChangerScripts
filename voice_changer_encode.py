@@ -71,4 +71,15 @@ if __name__ == "__main__":
     print("Metadata:", metadata)
 
     # Step 2: Change the voice and save the modified audio (with reverb)
-    change_voice(original_file, modified_file, pitch_shift=10, apply_reverb=False)
+    change_voice(original_file, modified_file, pitch_shift=8, apply_reverb=False)
+
+# 0	No change	Original voice (no pitch shift).
+# -12 One octave down	     Deep, demon-like voice.
+# -6	 Half octave down	     Male voice to a very deep male voice.
+# -4	 Lower tone	          Normal male voice to a deeper male voice.
+# -2	 Slightly lower:	     Subtle deepening of the voice.
+# 2	 Slightly higher:        raising of the pitch (like a younger version).
+# 4	 Higher tone	          Female voice-like effect for male voices.
+# 8	 Cartoon VOice           Very high-pitched, almost comical.
+# 12  One Octave Up           Extremely high-pitched, helium effect.
+# 15	 Squeaky Voice           High-pitched, robotic squeak.
